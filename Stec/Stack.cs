@@ -2,61 +2,83 @@
 {
     public class Stack
     {
-        public StackItem? Top => stroka.Count > 0 ? stroka[stroka.Count - 1] : null;
+        public StackItem? _top;    
 
-        public List<StackItem> stroka = new List<StackItem>();      
-
-        public int Size => stroka.Count;
+        public int Size => CountItems();
         
-        public Stack (params string[] stackItems)
-        {
-            foreach (var items in stackItems)
+        public Stack (params string[]? stackItems)
+        {          
+            foreach (var item in stackItems)
             {
-                var _items = new StackItem(items);
-                if(Top!=null)
-                {
-                _items.previousItem= Top;
-                }
-                stroka.Add(_items);
-                
+                Add(item);
             }
-           
         }
-
+        
         public void Add(string item)
         {
             var stekItem = new StackItem(item);
-            stroka.Add(stekItem);
+            if (_top != null)
+            {
+                stekItem.previousItem = _top;
+            }
+            _top =stekItem;
         }
         public void Pop()
         {
-            if (stroka.Count == 0)
+            if (_top == null)
             {
                 throw new InvalidOperationException("Стек пуст.");
-            }            
-            stroka.Remove(Top);
-            
+            }
+            _top = _top.previousItem;                     
         }
         public static Stack Concat(params List<Stack> stacks)
         {
-            var a = new Stack("");
-            for (int i = 0; i < stacks.Count; i++)
-            {
-                for (int j = stacks[i].stroka.Count - 1; j >= 0; j--)
+            var newStack = new Stack();
+
+            foreach (var stack in stacks)
+            {                
+                var currentItem = stack._top;
+                
+                var itemsToAdd = new List<string>();
+                
+                while (currentItem != null)
                 {
-                    a.stroka.Add(stacks[i].stroka[j]);
+                    itemsToAdd.Add(currentItem.str);
+                    currentItem = currentItem.previousItem;
+                }
+
+                for (int i = 0; i <= itemsToAdd.Count-1; i++)
+                {
+                    newStack.Add(itemsToAdd[i]);
                 }
             }
-
-            return a;
+            return newStack;
         }
+       
+        public  int CountItems()
+        {
+            int count = 0;
+            var currentItem = _top;
+
+            while (currentItem != null)
+            {
+                count++;
+                currentItem = currentItem.previousItem;
+            }
+
+            return count;
+        }
+
+
+        
         public class StackItem
         {
             public string str;
-            public StackItem previousItem;
+            public StackItem? previousItem;
             public StackItem(string _str)
             {
                 str= _str;
+                previousItem = null;
             }
 
         }

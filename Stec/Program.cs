@@ -6,23 +6,18 @@ namespace Stec
     {
         static void Main(string[] args)
         {
-            var s = new Stack("a","v");
-            Console.WriteLine($"Size = {s.Size}, Top = '{s.Top.str}'");
+            var s = new Stack("2","f","c");
+            Console.WriteLine($"Size = {s.Size}, Top = '{s._top?.str}'");
             s.Pop();
-            Console.WriteLine($"Size = {s.Size}, Top = '{s.Top.str}'");
+            Console.WriteLine($"Size = {s.Size}, Top = '{s._top?.str}'");
             s.Add("a");
-            foreach (var x in s.stroka) Console.Write(x.str + ":");
             Console.WriteLine();
-            Console.WriteLine($"Size = {s.Size} , Top = ' {s.Top.str}'");
+            Console.WriteLine($"Size = {s.Size} , Top = '{s._top?.str}'");
 
             s.Merge(new Stack("a", "f", "fdsaf"));
-            foreach (var x in s.stroka) Console.Write(x.str + " ");
-
-            Console.WriteLine();
+            Console.WriteLine(s._top.str);
             var a = Stack.Concat(new Stack("a", "b", "c"), new Stack("1", "2", "3"), new Stack("А", "Б", "В"));
-            foreach (var x in a.stroka) Console.Write(x.str + " ");
-
-            
+            Console.WriteLine(a._top.str);
         }
     }
 }

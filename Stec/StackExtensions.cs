@@ -4,12 +4,22 @@
     {
         public static void Merge(this Stack stack, Stack stack1)
         {
-
-            for (int i = stack1.stroka.Count - 1; i >= 0; i--)
+            var currentItem = stack1._top;
+            
+            var itemsToAdd = new List<string>();
+           
+            while (currentItem != null)
             {
-                stack.stroka.Add(stack1.stroka[i]);
+                itemsToAdd.Add(currentItem.str); 
+                currentItem = currentItem.previousItem;
             }
-        }
+
+            for (int i = 0; i <= itemsToAdd.Count - 1; i++)
+            {
+                stack.Add(itemsToAdd[i]);
+            }
+
+        }     
     }
 }
 
