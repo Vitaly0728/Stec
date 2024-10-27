@@ -2,24 +2,16 @@
 {
     public static class StackExtensions
     {
-        public static void Merge(this Stack stack, Stack stack1)
+        public static void Merge(this Stack s1, Stack s2)
         {
-            var currentItem = stack1._top;
+            var tempStack = new Stack();
             
-            var itemsToAdd = new List<string>();
-           
-            while (currentItem != null)
+            while (s2.Size > 0)
             {
-                itemsToAdd.Add(currentItem.str); 
-                currentItem = currentItem.previousItem;
-            }
-
-            for (int i = 0; i <= itemsToAdd.Count - 1; i++)
-            {
-                stack.Add(itemsToAdd[i]);
-            }
-
-        }     
+                tempStack.Add(s2.Pop());
+                s1.Add(tempStack.Pop());
+            }            
+        }
     }
 }
 
