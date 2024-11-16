@@ -3,9 +3,9 @@
     public class Stack
     {
         private  StackItem? _top; 
-        public string Top => _top?.Str;
+        public string? Top => _top?.Str;
         public int Size { get; private set; } = 0;
-
+        
         public Stack (params string[]? stackItems)
         {          
             foreach (var item in stackItems)
@@ -52,10 +52,10 @@
             return newStack;
         }      
         
-        public class StackItem
+        private class StackItem
         {
             public string Str { get; set; }
-            public StackItem PreviousItem { get; set; }            
+            public StackItem? PreviousItem { get; set; }            
             public StackItem(string _str, StackItem previous)
             {
                 Str= _str;
